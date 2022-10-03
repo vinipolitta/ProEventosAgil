@@ -494,3 +494,7 @@ Thumbs.db
 *.db
 *.db-schema
 *.db.wal
+*.db.shm
+
+.dll
+.db
