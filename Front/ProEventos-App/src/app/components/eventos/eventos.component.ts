@@ -1,5 +1,7 @@
+import { EventoService } from './../../services/evento.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Evento } from 'src/app/model/evento';
 
 @Component({
   selector: 'app-eventos',
@@ -7,12 +9,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./eventos.component.scss'],
 })
 export class EventosComponent implements OnInit {
-  public eventos: any = [];
+  public eventos: Evento[] = [];
   public widthImg = 50;
   public margenImg = 2;
   public showImage = false;
-  public eventsFilter: any = []
+  public eventsFilter: Evento[] = [];
   private _filterList;
+  content = 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.';
+
 
   public get filterList() {
     return this._filterList;
@@ -25,7 +29,7 @@ export class EventosComponent implements OnInit {
       : this.eventos;
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private eventoService: EventoService) {}
 
   API = 'https://localhost:5001/api/Eventos';
 
@@ -33,7 +37,7 @@ export class EventosComponent implements OnInit {
     this.getEventos();
   }
 
-  public filterEvents(filterFor: string): any {
+  public filterEvents(filterFor: string): Evento[] {
     filterFor = filterFor.toLocaleLowerCase();
     return this.eventos.filter(
       (evento) =>
@@ -43,16 +47,18 @@ export class EventosComponent implements OnInit {
   }
 
   public getEventos(): void {
-    this.http.get(this.API).subscribe(
-      (response) => {
-        this.eventos = response;
-        this.eventsFilter = this.eventos
+    this.eventoService.getEvento().subscribe(
+      (_eventos: Evento[]) => {
+        this.eventos = _eventos;
+        this.eventsFilter = this.eventos;
+        console.log('aqui',this.eventsFilter);
+
       },
       (error) => console.log(error)
     );
   }
 
-  showImageHtml() {
+  public showImageHtml() {
     this.showImage = !this.showImage;
   }
 }
