@@ -65,3 +65,9 @@ R:\vini-new-curso\ProEventosAgil\Back\src\ProEentos.API\bin\Debug\net5.0\Microso
 R:\vini-new-curso\ProEventosAgil\Back\src\ProEentos.API\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 R:\vini-new-curso\ProEventosAgil\Back\src\ProEentos.API\bin\Debug\net5.0\Newtonsoft.Json.dll
 R:\vini-new-curso\ProEventosAgil\Back\src\ProEentos.API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+R:\vini-new-curso\ProEventosAgil\Back\src\ProEentos.API\bin\Debug\net5.0\AutoMapper.dll
+R:\vini-new-curso\ProEventosAgil\Back\src\ProEentos.API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+R:\vini-new-curso\ProEventosAgil\Back\src\ProEentos.API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+R:\vini-new-curso\ProEventosAgil\Back\src\ProEentos.API\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+R:\vini-new-curso\ProEventosAgil\Back\src\ProEentos.API\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+R:\vini-new-curso\ProEventosAgil\Back\src\ProEentos.API\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
