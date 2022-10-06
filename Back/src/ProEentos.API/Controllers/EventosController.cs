@@ -116,7 +116,7 @@ namespace ProEentos.API.Controllers
             try
             {
                 return await _eventosServices.DeleteEventos(id) ?
-                                              Ok("Deletado") :
+                                              Ok(new { message = "Deletado"}) :
                                               throw new Exception("Ocorreu um problema nao especifico ao tentar deletar evento");
 
             }

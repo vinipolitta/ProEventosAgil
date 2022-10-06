@@ -10,7 +10,7 @@ namespace ProEventos.Application.Dtos
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Ocampo {0} é obrigatorio"),
-        StringLength(50, MinimumLength = 4, ErrorMessage = "Intervalo permitido de 4 a 50 caracteres.")]
+        StringLength(50, MinimumLength = 2, ErrorMessage = "Intervalo permitido de 2 a 50 caracteres.")]
         public string Local { get; set; }
         public string DataEvento { get; set; }
 
