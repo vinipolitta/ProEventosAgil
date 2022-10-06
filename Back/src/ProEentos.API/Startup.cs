@@ -19,7 +19,7 @@ using ProEventos.Persistence.Contexto;
 using ProEventos.Persistence.Contratos;
 using AutoMapper;
 
-namespace ProEentos.API
+namespace ProEventos.API
 {
     public class Startup
     {
@@ -49,7 +49,7 @@ namespace ProEentos.API
             services.AddCors();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProEentos.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProEventos.API", Version = "v1" });
             });
         }
 
@@ -60,7 +60,7 @@ namespace ProEentos.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProEentos.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProEventos.API v1"));
             }
 
             app.UseHttpsRedirection();

@@ -6,7 +6,7 @@ using AutoMapper;
 using ProEventos.Application.Dtos;
 using ProEventos.Domain;
 
-namespace ProEentos.Application.Helpers
+namespace ProEventos.Application.Helpers
 {
     public class ProEventosProfile : Profile
     {

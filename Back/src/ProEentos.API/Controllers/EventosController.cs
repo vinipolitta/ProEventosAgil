@@ -10,7 +10,7 @@ using ProEventos.Application.Contratos;
 using Microsoft.AspNetCore.Http;
 using ProEventos.Application.Dtos;
 
-namespace ProEentos.API.Controllers
+namespace ProEventos.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
