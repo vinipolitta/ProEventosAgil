@@ -72,7 +72,6 @@ namespace ProEventos.Application
 
                 throw new Exception(ex.Message);
             }
-            return null;
         }
 
         public async Task<bool> DeleteEventos(int eventoId)
