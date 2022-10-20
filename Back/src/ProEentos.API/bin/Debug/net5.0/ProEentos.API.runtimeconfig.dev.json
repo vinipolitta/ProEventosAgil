@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\vinic\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\vinic\\.nuget\\packages",
+      "C:\\Users\\Vini\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Vini\\.nuget\\packages",
       "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
     ]
   }

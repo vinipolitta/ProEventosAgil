@@ -9,6 +9,8 @@ using ProEventos.Persistence.Contexto;
 using ProEventos.Application.Contratos;
 using Microsoft.AspNetCore.Http;
 using ProEventos.Application.Dtos;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ProEventos.API.Controllers
 {
@@ -19,9 +21,11 @@ namespace ProEventos.API.Controllers
 
 
         private readonly IEventosServices _eventosServices;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public EventosController(IEventosServices eventosServices)
+        public EventosController(IEventosServices eventosServices, IWebHostEnvironment hostEnvironment)
         {
+            _hostEnvironment = hostEnvironment;
             _eventosServices = eventosServices;
 
 
@@ -78,6 +82,31 @@ namespace ProEventos.API.Controllers
             }
         }
 
+        [HttpPost("upload-image/{eventoId}")]
+        public async Task<IActionResult> UploadImage(int eventoId)
+        {
+            try
+            {
+                var evento = await _eventosServices.GetEventoByIdAsync(eventoId, true);
+                if (evento == null) return NoContent();
+
+                var file = Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    DeleteImage(evento.ImagemURL);
+                    evento.ImagemURL = await SaveImage(file);
+                }
+
+                var eventoRetorno = await _eventosServices.UpdateEventos(eventoId, evento);
+                return Ok(eventoRetorno);
+            }
+            catch (Exception ex)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar adicionar eventos. Erro: {ex.Message} ");
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(EventoDto model)
         {
@@ -115,9 +144,20 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                return await _eventosServices.DeleteEventos(id) ?
-                                              Ok(new { message = "Deletado"}) :
-                                              throw new Exception("Ocorreu um problema nao especifico ao tentar deletar evento");
+                var evento = await _eventosServices.GetEventoByIdAsync(id, true);
+                if (evento == null) return NoContent();
+
+                if (await _eventosServices.DeleteEventos(id))
+                {
+                    DeleteImage(evento.ImagemURL);
+
+                    return Ok(new { message = "Deletado" });
+                }
+                else
+                {
+
+                    throw new Exception("Ocorreu um problema nao especifico ao tentar deletar evento");
+                }
 
             }
             catch (Exception ex)
@@ -125,6 +165,32 @@ namespace ProEventos.API.Controllers
 
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar deletar eventos. Erro: {ex.Message} ");
             }
+        }
+
+        [NonAction]
+        public void DeleteImage(string imageName)
+        {
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imageName);
+            if (System.IO.File.Exists(imagePath))
+                System.IO.File.Delete(imagePath);
+
+        }
+
+
+        [NonAction]
+        public async Task<string> SaveImage(IFormFile imageNameFile)
+        {
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageNameFile.FileName)
+                                              .Take(10)
+                                              .ToArray()).Replace(' ', '-');
+            imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageNameFile.FileName)}";
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imageName);
+
+            using (var fileSream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageNameFile.CopyToAsync(fileSream);
+            }
+            return imageName;
         }
     }
 }
